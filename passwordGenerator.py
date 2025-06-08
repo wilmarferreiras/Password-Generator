@@ -5,6 +5,8 @@ alphabet = string.ascii_letters
 digits = "0123456789"
 symbols = "!@#$%&"
 
+reason = input("what is this new password for?(keep it simple): ")
+
 def create_password(strings = True, numbers = True, characters = True):
     password = ""
     length = 12
@@ -26,8 +28,12 @@ newPassword = create_password()
 def save_password():
     directory = os.path.expanduser('~\\Documents')
     file_path = os.path.join(directory, 'password.txt')
-    
-    with open(file_path, 'w') as file:
-        file.write(newPassword)
-    print("file created with your new password in Documents folder called password.txt")
+    if file_path == False:
+        with open(file_path, 'w') as file:
+            file.write(f'{reason}   password: {newPassword}\n')
+        print("file created with your new password in Documents folder called password.txt")
+    else:
+        with open(file_path, 'a') as file:
+            file.write(f'{reason}   password: {newPassword}\n')
+        print("new password aded in your file at Documents folder called password.txt")
 save_password()
